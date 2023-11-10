@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace = 接口的全限定符 -->
+<mapper namespace="com.atguigu.mapper.EmployeeMapper">
+
+
+
+    <!--
+       #{ key } : 占位符 + 赋值   emp_id = ?   ? = 赋值
+       ${ key } ：字符串拼接   " emp_id = "  + id
+
+       推荐使用#{key} 防止【注入攻击】的问题！！！
+       总结： 动态值 使用 #{key} 动态的列名 容器名 关键字 ${key}
+       ？ 只能替代值的位置 , 不能替代的 容器名（标签，列名，sql关键字） emp_id = ?  不能写  ？ = ?
+       xxx(columnName,columnValue)
+       sql  select * from 表 where  列名是动态的 ${ columnName } =  动态的值 #{columnValue}
+    -->
+    <select id="queryById" resultType="com.atguigu.pojo.Employee">
+        select emp_id empId , emp_name empName , emp_salary empSalary
+            from t_emp where emp_id = ${id}
+    </select>
+
+    <!--
+       场景1： 传入的单个简单类型  key 随便写 一般情况下推荐使用参数名！！！
+    -->
+    <delete id="deleteById">
+        delete from t_emp where emp_id = #{ ergouzi }
+    </delete>
+
+    <select id="queryBySalary" resultType="com.atguigu.pojo.Employee">
+        select emp_id empId , emp_name empName , emp_salary empSalary
+        from t_emp where emp_salary = #{ salary }
+    </select>
+
+    <!-- 场景2： 传入的是一个实体对象 key 如何写？
+                 key = 属性名即可！！！
+     -->
+    <insert id="insertEmp">
+        insert into t_emp (emp_name , emp_salary )  values (#{empName},#{empSalary});
+    </insert>
+
+    <!--
+        场景3： 传入多个简单类型数据如何取值 key!
+                可以不可以随便写？ 不可以！
+                按照形参名称获取？ 也不可以！
+                方案1： 注解指定  @Param注解  指定多个简单参数的key   key = @Param("value值")  [推荐]
+                方案2： mybatis默认机制
+                        argo arg1 .... 形参左到右依次对应 argo arg1..
+                        (name,salary) name-> key = arg0  salary -> key = arg1
+                        param1 param2 ....
+                        (name,salary) name-> key = param1  salary -> key = param2
+    -->
+    <select id="queryByNameAndSalary" resultType="com.atguigu.pojo.Employee">
+        select emp_id empId , emp_name empName , emp_salary empSalary
+                    from t_emp where emp_name = #{param1} and emp_salary = #{param2}
+    </select>
+
+    <!-- 场景4： 传入map 如何指定key的值
+                 key = map的key即可！
+     -->
+    <insert id="insertEmpMap">
+        insert into t_emp (emp_name , emp_salary )  values (#{name},#{salary});
+    </insert>
+
+</mapper>

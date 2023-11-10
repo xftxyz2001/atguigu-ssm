@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.atguigu</groupId>
+    <artifactId>maven-javaee-project-02</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <!--
+       手动创建web项目
+          1. 创建一个Javase maven 工程
+          2. 补全文件结构
+              main
+                webapp
+                  WEB-INF
+                     web.xml
+         3. pom.xml
+             packaging  war
+         4. 刷新 - webapp多了一个小蓝点
+
+    -->
+
+
+</project>

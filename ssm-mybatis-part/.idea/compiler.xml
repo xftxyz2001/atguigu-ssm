@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="mybatis-base-param-input-02" />
+        <module name="mybatis-high-dynsql-06" />
+        <module name="mybatis-base-crud-04" />
+        <module name="mybatis-high-multitable-05" />
+        <module name="mybatis-base-result-output-03" />
+        <module name="mybatis-other-extend-07" />
+        <module name="mybatis-base-quick-01" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mybatis-base-helloword-01" target="17" />
+      <module name="mybatis-base-quickstart-01" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

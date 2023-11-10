@@ -1,0 +1,29 @@
+
+
+接收参数
+   1.路径设置
+      @RequestMapping(value="地址",method="请求方式")  类 | 方法
+      @GetMapping / @PostMapping  方法
+   2.接收参数【重点】
+      param
+          直接接收 handler(类型 形参名)  形参名 =  请求参数名
+          注解指定 handler(@RequestParam(name="请求参数名",required=true,defaultValue="默认值"))
+          一名多值 handler(@RequestParam List key)
+          实体接收 handler(实体 对象)  对象的属性名 = 请求参数名
+      路径参数
+          设置动态路径和标识  /{key}/info/{key}
+          接收路径 handler(@PathVariable(动态路径key) 类型 形参名)
+      json
+          数据接收 handler(@RequestBody 实体类 对象)
+          准备工作：
+                   1.导入jackson依赖
+                   2.@EnableWebMvc [加入handlerMapping 加入handlerAdapter 给handlerAdapter配置json处理器]
+   3.cookie接收
+          handler(@CookieValue("cookie的名字"))
+   4.请求头接收
+          handler(@RequestHeader("cookie的名字"))
+   5.原生api获取
+          handler(httpServletRequest,response,session)
+          ServletContext -> ioc  -> 全局变量 @Autowired
+   6.共享域获取
+          原生api方式即可

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:property-placeholder location="classpath:jdbc.properties" />
+
+    <!-- druid -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="${atguigu.url}" />
+        <property name="driverClassName" value="${atguigu.driver}" />
+        <property name="username" value="${atguigu.username}" />
+        <property name="password" value="${atguigu.password}" />
+    </bean>
+
+    <!-- jdbcTemplate-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- dao 配置 di jdbcTemplate-->
+    <bean id="studentDao" class="com.atguigu.dao.impl.StudentDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate" />
+    </bean>
+    <!-- service 配置 di dao-->
+    <bean id="studentService" class="com.atguigu.service.impl.StudentServiceImpl">
+        <property name="studentDao" ref="studentDao" />
+    </bean>
+    <!-- controller 配置 di service-->
+    <bean id="studentController" class="com.atguigu.controller.StudentController">
+        <property name="studentService" ref="studentService" />
+    </bean>
+</beans>

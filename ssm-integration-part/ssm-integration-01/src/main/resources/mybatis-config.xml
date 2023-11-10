@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!-- 数据库链接信息 连接池，DruidDataSource  mapper接口的包指定 ！-->
+    <settings>
+        <!-- 开启驼峰式映射-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 开启logback日志输出-->
+        <setting name="logImpl" value="SLF4J"/>
+        <!--开启resultMap自动映射 -->
+        <setting name="autoMappingBehavior" value="FULL"/>
+    </settings>
+
+    <typeAliases>
+        <!-- 给实体类起别名 -->
+        <package name="com.atguigu.pojo"/>
+    </typeAliases>
+
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--
+                helperDialect：分页插件会自动检测当前的数据库链接，自动选择合适的分页方式。
+                你可以配置helperDialect属性来指定分页插件使用哪种方言。配置时，可以使用下面的缩写值：
+                oracle,mysql,mariadb,sqlite,hsqldb,postgresql,db2,sqlserver,informix,h2,sqlserver2012,derby
+                （完整内容看 PageAutoDialect） 特别注意：使用 SqlServer2012 数据库时，
+                https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md#%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%B9%E8%A8%80
+             -->
+            <property name="helperDialect" value="mysql"/>
+        </plugin>
+    </plugins>
+</configuration>

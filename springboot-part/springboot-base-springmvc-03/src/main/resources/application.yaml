@@ -1,0 +1,15 @@
+
+
+# springmvc相关的web配置
+# serverkey
+server:
+  port: 80 # 端口号 默认是8080
+  servlet:
+    context-path: /boot #设置项目根路径
+
+spring:
+  web:
+    resources:
+      static-locations: classpath:/webapp  #配置静态资源文件夹
+      # 一旦你配置了默认的静态资源文件夹就无法访问了  static public resources META-INF/resources
+      # 外部访问静态资源的时候，不需要写静态资源文件夹

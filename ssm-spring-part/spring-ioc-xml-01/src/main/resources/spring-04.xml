@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--
+       init-method = "初始化方法名"
+       destroy-method = "销毁方法名"
+       spring ioc容器就会在对应的时间节点回调对应的方法,我们可以在其中写对应的业务就可以啦!
+    -->
+    <bean id="javaBean" class="com.atguigu.ioc_04.JavaBean" init-method="init" destroy-method="clear" />
+
+
+
+    <!-- 声明一个组件信息！ 默认就是单例模式  一个<bean  - beanDefinition  - 组件对象 getBean一次就会创建一个组件对象-->
+    <bean id="javaBean2" class="com.atguigu.ioc_04.JavaBean2"  scope="prototype"/>
+</beans>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace = 接口的全限定符 -->
+<mapper namespace="com.atguigu.mapper.UserMapper">
+
+
+<!--    int insert(User user);-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into user (username,password) value(#{username},#{password});
+    </insert>
+
+<!--    int update(User user);-->
+    <update id="update">
+        update user set username=#{username} , password = #{password}
+           where id = #{id}
+    </update>
+
+
+<!--    int delete(Integer id);-->
+    <delete id="delete">
+        delete from user where id = #{sdhkadhsakjdhajdasjhd}
+    </delete>
+
+<!--    User selectById(Integer id);-->
+    <select id="selectById" resultType="user">
+        select * from user where id = #{id}
+    </select>
+
+<!--    List<User> selectAll();-->
+    <select id="selectAll" resultType="user">
+        select * from user;
+    </select>
+
+
+</mapper>

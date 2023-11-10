@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- 引用和被引用的组件 必须全部在ioc容器! 不能乡愁!!-->
+
+    <!-- 1. 单个构造参数注入 -->
+
+
+    <!--
+       springioc容器是一个高级容器,内部会有缓存动作!  1. 先创建对象[ioc] 2.再进行属性赋值 [di]
+    -->
+    <bean id="userService" class="com.atguigu.ioc_02.UserService" >
+        <!--构造参数传值 di的配置
+            <constructor-arg 构造参数传值的 di配置
+                 value  = 直接属性值   String name  ="二狗子"  int age = "18"
+                 ref    = 引用其他的bean   beanId值
+        -->
+        <constructor-arg ref="userDao"/>
+    </bean>
+
+    <!-- 步骤1: 将他们都存放在ioc容器 [ioc]-->
+    <bean id="userDao" class="com.atguigu.ioc_02.UserDao" />
+
+
+    <!-- 2.多个构造参数注入  -->
+    <bean id="userService1" class="com.atguigu.ioc_02.UserService">
+        <!-- 方案1: 构造参数的顺序填写值  value 直接赋值  ref 引用其他的beanid -->
+        <constructor-arg value="18"/>
+        <constructor-arg value="二狗子"/>
+        <constructor-arg ref="userDao"/>
+    </bean>
+
+    <bean id="userService2" class="com.atguigu.ioc_02.UserService">
+        <!-- 方案2: 构造参数的名称填写,不用考虑顺序 name = 构造参数的名字 [推荐]-->
+        <constructor-arg name="name" value="二狗子"/>
+        <constructor-arg name="age" value="18"/>
+        <constructor-arg name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="userService2" class="com.atguigu.ioc_02.UserService">
+        <!-- 方案3: 构造参数的参数的下角标指定填写,不用考虑顺序 index = 构造参数的下角标 从左到右 从0开始
+             age = 0  name = 1  userDao = 2
+        -->
+        <constructor-arg index="1" value="二狗子"/>
+        <constructor-arg index="0" value="18"/>
+        <constructor-arg index="2" ref="userDao"/>
+    </bean>
+
+
+
+    <!-- 3. 触发setter方法进行注入  -->
+    <bean id="movieFinder" class="com.atguigu.ioc_02.MovieFinder" />
+
+    <bean id="simpleMovieLister" class="com.atguigu.ioc_02.SimpleMovieLister">
+          <!--
+              name-> 属性名 setter方法的 去set和首字母小写的值! 调用set方法的名
+                setMovieFinder -> movieFinder
+              value | ref 二选一  value="直接属性值"  ref ="其他bean的Id"
+          -->
+         <property name="movieName" value="消失的她" />
+         <property name="movieFinder" ref="movieFinder" />
+    </bean>
+</beans>

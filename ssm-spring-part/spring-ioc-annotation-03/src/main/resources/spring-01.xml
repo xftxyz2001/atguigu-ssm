@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--1. 普通配置包扫描
+           base-package 指定ioc容器去哪些包下查找注解类 -> ioc容器
+           一个包或者多个包  com.atguigu,com.atguigu.xxx 包,包
+           指定包,相当于指定了子包内的所有类
+    -->
+<!--    <context:component-scan base-package="com.atguigu.ioc_01" />-->
+
+
+    <!-- 2.指定包,但是排除注解 -->
+
+<!--    <context:component-scan base-package="com.atguigu" >-->
+<!--        &lt;!&ndash; 排除包下的注解&ndash;&gt;-->
+<!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>-->
+<!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+<!--    </context:component-scan>-->
+
+    <!--3.指定包,指定包含注解 -->
+    <!-- basePackage包下的所有注解都生效!!  use-default-filters="false" 指定包的所有注解先不生效! -->
+     <context:component-scan base-package="com.atguigu" use-default-filters="false">
+         <!-- 只扫描包下的注解 -->
+         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+     </context:component-scan>
+
+</beans>

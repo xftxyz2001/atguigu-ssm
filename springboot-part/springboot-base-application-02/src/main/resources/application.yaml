@@ -1,0 +1,44 @@
+
+# server.port=80
+# server.servlet.context-path=/boot
+
+# yaml有层次,可以继承的配置文件格式
+# key:
+# 缩进key:   -> key.key
+
+# springboot规定的配置,有特殊含义
+server:
+  port: 80
+  servlet:
+    context-path: /boot
+
+# 数据库连接信息     测试库  开发的库  上线
+
+
+zwf:
+  user:
+    username: adminapplication
+    gfs:
+      - a
+      - b
+      - c
+
+#zwf:
+#  user:
+#    username: root
+#    password: 123456
+#    gfs:
+#      - a
+#      - b
+#      - c
+#    gfs:
+#      - 高圆圆
+#      - 范冰冰
+
+
+spring:
+  profiles:
+    active: test,dev # 激活外部的配置  application-test | application-dev
+                     # 外部配置的key和application key重复  外部的覆盖内部!!
+                     # jar  --active=test
+

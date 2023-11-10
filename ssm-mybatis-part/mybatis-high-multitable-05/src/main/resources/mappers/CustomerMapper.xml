@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace = 接口的全限定符 -->
+<mapper namespace="com.atguigu.mapper.CustomerMapper">
+
+
+<!--    List<Customer> queryList();-->
+
+    <!--
+       默认情况下. resultMap会自动映射单层的result标签 [列名和属性名相同,或者开启驼峰式映射 列 _  属性 驼峰式]
+       嵌套 association | collection 不会自动映射result标签  列名 和 属性名
+
+    -->
+    <resultMap id="customerMap" type="customer">
+        <id column="customer_id" property="customerId" />
+        <collection property="orderList"  ofType="order">
+            <id column="order_id" property="orderId" />
+        </collection>
+    </resultMap>
+
+    <select id="queryList"  resultMap="customerMap">
+        SELECT * FROM t_order tor JOIN  t_customer tur
+                        ON  tor.customer_id = tur.customer_id
+    </select>
+</mapper>

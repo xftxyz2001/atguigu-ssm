@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace = 接口的全限定符 -->
+<mapper namespace="com.atguigu.mapper.EmployeeMapper">
+
+
+<!--    List<Employee> query(@Param("name") String name, @Param("salary") Double salary);
+        如果传入属性,就判断相等,如果不传入,不加对应的条件
+        where
+        if 判断传入的参数,最终是否添加语句
+            test属性 内部做比较运算,最终true将标签内的sql语句进行拼接
+                                      false不拼接标签内部语句
+                判断语句: " key 比较符号 值 and | or key 比较符号 值"
+                大于和小于 不推荐直接写符号!  实体符号 html   >   == &gt;  < &lt;
+
+        问题:
+           假如两个都满足 where emp_name = #{name}  and emp_salary = #{salary}
+           假如第一个满足 where  emp_name = #{name}
+           假如第一个不满足,第二个满足 where and emp_salary = #{salary}   错误
+           假如都不满足 where
+
+        where标签的作用有两个:
+            1. 自动添加where关键字  where内部有任何一个if满足,自动添加where关键字,不满足去掉where!
+            2. 自动去掉多余的and 和 or 关键字
+
+-->
+
+    <sql id="selectSql">
+        select * from t_emp
+    </sql>
+
+    <select id="query" resultType="employee">
+        <include refid="selectSql" />
+            <where>
+                 <if test="name != null">
+                    emp_name = #{name}
+                 </if>
+                 <if test="salary != null and salary &gt; 100">
+                     and emp_salary = #{salary}
+                 </if>
+            </where>
+
+    </select>
+
+
+
+
+    <!--
+
+        //根据员工id更新员工的数据，我们要求 传入的name和salary不为null的才更新
+        int update(Employee employee);
+
+        全部满足： 没问题
+        第一个满足： 多个了一个 ,
+        第二个满足： 没问题
+        都不满足： 语法错误
+
+        set: 1.自动去掉多余的 ,
+             2.自动添加set关键字
+    -->
+
+    <update id="update">
+        update t_emp
+          <set>
+               <if test="empName != null">
+                   emp_name = #{empName} ,
+               </if>
+               <if test="empSalary">
+                   emp_salary = #{empSalary}
+               </if>
+          </set>
+        where emp_id = #{empId}
+    </update>
+
+
+<!--    List<Employee> queryTrim(@Param("name") String name, @Param("salary") Double salary);-->
+
+    <select id="queryTrim" resultType="employee">
+       <include refid="selectSql" />
+        <trim prefix="where" suffixOverrides="and|or">
+            <if test="name != null">
+                emp_name = #{name} and
+            </if>
+            <if test="salary != null and salary &gt; 100">
+               emp_salary = #{salary}
+            </if>
+        </trim>
+
+    </select>
+
+
+    <update id="updateTrim">
+        update t_emp
+        <trim prefix="set" suffixOverrides=",">
+            <if test="empName != null">
+                emp_name = #{empName} ,
+            </if>
+            <if test="empSalary">
+                emp_salary = #{empSalary}
+            </if>
+        </trim>
+        where emp_id = #{empId}
+    </update>
+
+
+<!--    //根据两个条件查询，如果姓名不为null使用姓名查询，如果姓名为null,薪水不为空就使用薪水查询！ 都为null查询全部-->
+<!--    List<Employee> queryChoose(@Param("name") String name, @Param("salary") Double salary);-->
+    <select id="queryTrim" resultType="employee">
+        select * from t_emp
+         where
+            <choose>
+                <when test="name != null">
+                    emp_name = #{name}
+                </when>
+                <when test="salary != null">
+                    emp_salary = #{salary}
+                </when>
+                <otherwise>1=1</otherwise>
+            </choose>
+
+    </select>
+
+
+
+
+<!--    //根据id的批量查询-->
+<!--    List<Employee> queryBatch(@Param("ids") List<Integer> ids);-->
+<!--    [1,2,3]-->
+    <select id="queryBatch" resultType="employee">
+        select * from t_emp
+                        where emp_id in
+                        <!-- 遍历的数据
+                            ( 1 , 2 , 3  )
+
+                             collection="ids | arg0 | list"
+                             open 遍历之前要追加的字符串
+                             close 遍历结束需要添加的字符串
+                             separator 每次遍历的分割符号！ 如果是最后一次，不会追加
+                             item 获取每个遍历项
+
+                             （ 1，2 ，3 ）
+
+                        -->
+                        <foreach collection="ids" open="(" separator="," close=")" item="id">
+                              <!-- 遍历的内容， #{遍历项 item指定的key}-->
+                              #{id}
+                        </foreach>
+    </select>
+
+<!--    //根据id的批量删除-->
+<!--    int deleteBatch(@Param("ids") List<Integer> ids);-->
+    <delete id="deleteBatch">
+        delete from t_emp where id in
+                     <foreach collection="ids" open="("  separator="," close=")" item="id">
+                         #{id}
+                     </foreach>
+    </delete>
+
+<!--    int insertBatch(@Param("list")List<Employee> employeeList);-->
+
+    <insert id="insertBatch">
+        insert into t_emp (emp_name,emp_salary)
+                  values
+                  <foreach collection="list" separator="," item="employee">
+                      (#{employee.empName}, #{employee.empSalary})
+                  </foreach>
+    </insert>
+
+<!--    int updateBatch(@Param("list") List<Employee> employeeList);-->
+
+    <!-- 如果一个标签设计多个语句！ 需要设置允许指定多语句 ！ allowMultiQueries=true-->
+    <update id="updateBatch">
+        <foreach collection="list" item="emp">
+            update t_emp set emp_name = #{emp.empName} , emp_salary = #{emp.empSalary}
+            where  emp_id = #{emp.empId} ;
+        </foreach>
+
+    </update>
+
+</mapper>

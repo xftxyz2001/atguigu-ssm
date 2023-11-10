@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace = 接口的全限定符 -->
+<mapper namespace="com.atguigu.mapper.EmployeeMapper">
+
+<!--    List<Employee> queryList();-->
+
+    <select id="queryList" resultType="employee">
+        select * from t_emp;
+    </select>
+
+</mapper>

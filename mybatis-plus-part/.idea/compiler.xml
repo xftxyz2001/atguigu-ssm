@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="mybatis-plus-curd-service-02" />
+        <module name="mybatis-plus-base-quick-01" />
+        <module name="myabtis-plus-mybatisx-05" />
+        <module name="mybatis-plus-other-04" />
+        <module name="mybatis-plus-curd-mapper-02" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="myabtis-plus-mybatisx-05" options="-parameters" />
+      <module name="mybatis-plus-base-quick-01" options="-parameters" />
+      <module name="mybatis-plus-curd-mapper-02" options="-parameters" />
+      <module name="mybatis-plus-curd-service-02" options="-parameters" />
+      <module name="mybatis-plus-other-04" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- gavp属性-->
+    <!-- 不会改变-->
+    <groupId>com.atguigu</groupId>
+    <artifactId>maven-pom-dependenies-04</artifactId>
+    <!-- 构建过程 - 部署 - 修改 -->
+    <version>1.0.1</version>
+    <!-- maven工程的打包方式  java jar [默认值]  web war  不打包 pom -->
+    <packaging>jar</packaging>
+
+    <!-- 声明版本号 -->
+    <properties>
+        <!-- 声明一个变量!声明完变量以后,在其他的位置可以引用 ${jackson.version}
+             注意: 声明的标签建议两层以上命名!  version  1.15.2  推荐: 技术名.version
+        -->
+        <jackson.version>2.15.2</jackson.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!-- 第三方依赖信息声明
+           dependencies  - 项目依赖信息的集合
+              dependency  -  每个依赖项
+                 [gav]       -  依赖的信息,就是其他maven的工程 [jar]
+
+          第三方依赖信息怎么知道?  jackson-core
+             1. maven提供的查询官网  https://mvnrepository.com
+             2. maven插件 maven-search
+                   安装插件
+                       tools
+                           maven-search  输入信息即可
+
+           扩展:
+              1. 提取版本号,统一管理
+              2. 可选属性scope
+                   scope 引入依赖的作用域
+                   默认: compile    main  test  打包和运行
+                         test      test                           junit @Test
+                         runtime   main不会  test不会  打包和运行  mysql  Class.forName(com.mysql.cj.jdbc.Driver)
+                         provided  main   test  打包和运行不同    servlet HttpServlet  tomcat提供了servlet
+                   总结: 他是一种锦上添花的手段,如果你掌握不好,你就默认值,全部生效,你就一定不会错!!
+
+    -->
+    <dependencies>
+
+<!--        <dependency>-->
+<!--            &lt;!&ndash; 定位信息 gav 三个属性是必须的!!!&ndash;&gt;-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-core</artifactId>-->
+<!--            <version>${jackson.version}</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+
+
+        <!--
+           依赖传递: 导入依赖,会自动导入依赖的依赖! (compile dependenices)
+                     简化依赖的导入 确保依赖的版本无冲突
+           依赖冲突: 发现已经存在依赖(重复依赖) 会终止依赖传递! 避免循环依赖和重复依赖的问题!
+
+           依赖冲突发生场景: 重复依赖!!
+               A - B 1.0
+               C - B 2.0
+
+               A
+               C  依赖传递 B
+
+           依赖冲突的解决原则:
+              第一原则: 谁短谁优先! 引用的路径长度
+                  A - C  - B 1.0
+                  F - B 2.0    A C F B 2.0
+              第二原则: 谁上谁优先! dependencies声明的先后顺序
+                  A - B 1.0
+                  F - B 2.0
+                  A - F - B 1.0
+            练习:
+               前提：
+                   A 1.1 -> B 1.1 -> C 1.1
+                   F 2.2 -> B 2.2
+
+                pom声明：
+                   F 2.2
+                   A 1.1
+                   B 2.2
+
+                 F 2.2
+                 A 1.1
+                 B 2.2
+                 不会引入C1.1 只要发生冲突了,后续的依赖传递全部终止!
+        -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+
+
+
+</project>

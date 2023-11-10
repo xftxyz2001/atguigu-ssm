@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace = 接口的全限定符 -->
+<mapper namespace="com.atguigu.mapper.TeacherMapper">
+
+
+    <!--
+       期望,非自增长的主键,交给mybatis帮助我们维护!
+    -->
+    <insert id="insertTeacher">
+
+        <!-- 插入之前,先指定一段sql语句,生成一个主键值!
+             order="before|after" sql语句是在插入语句之前还是之后执行!
+             resultType = 返回值类型
+             keyProperty = 查询结果给哪个属性赋值
+
+              //自己维护主键
+                String id = UUID.randomUUID().toString().replaceAll("-", "")
+                teacher.settId(id);
+        -->
+        <selectKey order="BEFORE" resultType="string" keyProperty="tId">
+            SELECT  REPLACE(UUID(),'-','');
+        </selectKey>
+
+        INSERT INTO teacher (t_id,t_name)
+                VALUE(#{tId},#{tName});
+    </insert>
+
+
+
+    <!--
+        Teacher queryById(String tId);
+
+        列名和属性不一致如何解决:
+           方案1: 别名  select t_id tId , t_name tName from teacher where t_id = #{tId}
+           方案2: 开启驼峰式映射  <setting name="mapUnderscoreToCamelCase" value="true"/>
+                  t_id  tId 自动映射
+           方案3: resultMap自定义映射  (resultType和resultMap二选一)
+                 resultType按照规则自动映射  按照是否开启驼峰式映射,自己映射属性和列名! 只能映射一层结构!
+                 深层次的对象结构无法映射,多表查询的时候结果无法映射!
+
+                 Order                  -   数据库
+                    orderId                        order_id
+                    orderName                      order_name
+                    OrderItem orderItem
+                                 item_id           item_id
+
+                resultMap标签,自定义映射关系,可以深层次可以单层次!!!
+
+
+     -->
+
+    <!-- 声明resultMap标签,自己定义映射规则
+               id标识 -> select resultMap="标识"
+               type   -> 具体的返回值类型 全限定符和别名 | 集合只写泛型即可
+                   <id 主键映射关系
+                   <result 普通列的映射关系
+    -->
+    <resultMap id="tMap" type="teacher">
+        <id column="t_id" property="tId" />
+        <result  column="t_name" property="tName"/>
+    </resultMap>
+
+    <select id="queryById"  resultMap="tMap">
+        select * from teacher where t_id = #{tId}
+<!--        select t_id tId , t_name tName from teacher where t_id = #{tId}-->
+    </select>
+
+
+</mapper>

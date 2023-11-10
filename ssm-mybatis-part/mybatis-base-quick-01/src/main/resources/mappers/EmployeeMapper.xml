@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  namespace =  mapper对应接口的全限定符 -->
+<mapper namespace="com.atguigu.mapper.EmployeeMapper">
+
+    <!-- 声明标签写sql语句  crud select insert update delete
+         每个标签对应接口的一个方法！ 方法的一个实现！
+         注意： mapper接口不能重载！！！！ 因为mapper.xml无法识别！ 根据方法名识别！！
+    -->
+    <select id="queryById" resultType="com.atguigu.pojo.Employee">
+        <!-- #{empId}代表动态传入的参数,并且进行赋值!后面详细讲解 -->
+        select emp_id empId,emp_name empName, emp_salary empSalary from
+        t_emp where emp_id = #{id}
+    </select>
+
+    <delete id="deleteById">
+         delete from t_emp where emp_id = #{id}
+    </delete>
+
+</mapper>

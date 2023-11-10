@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace = 接口的全限定符 -->
+<mapper namespace="com.atguigu.mapper.ScheduleMapper">
+
+
+    <select id="queryList" resultType="schedule">
+        select * from schedule
+    </select>
+
+
+<!--    int deleteById(Integer id);-->
+    <delete id="deleteById">
+        delete from schedule where id = #{id}
+    </delete>
+
+    <insert id="insert" >
+        insert into schedule (title,completed) value (#{title},#{completed});
+    </insert>
+
+
+    <update id="update" >
+        update schedule set title = #{title} ,completed = #{completed}
+           where id = #{id}
+    </update>
+</mapper>

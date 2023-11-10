@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/maven-javaee-project-03" />
+    <file type="web" url="file://$PROJECT_DIR$/maven-micro-shop/order-service" />
+    <file type="web" url="file://$PROJECT_DIR$/maven-micro-shop/user-service" />
+    <file type="web" url="file://$PROJECT_DIR$/maven-pom-build-05" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/maven-pom-build-05/pom.xml" />
+        <option value="$PROJECT_DIR$/maven-javaee-project-02/pom.xml" />
+        <option value="$PROJECT_DIR$/maven-javaee-project-03/pom.xml" />
+        <option value="$PROJECT_DIR$/maven-javase-project-01/pom.xml" />
+        <option value="$PROJECT_DIR$/maven-pom-dependenies-04/pom.xml" />
+        <option value="$PROJECT_DIR$/maven-pom-parent-06/pom.xml" />
+        <option value="$PROJECT_DIR$/maven-micro-shop/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/maven-pom-parent-06/maven-pom-shop-user/pom.xml" />
+        <option value="$PROJECT_DIR$/maven-pom-parent-06/shop-cart/pom.xml" />
+        <option value="$PROJECT_DIR$/maven-pom-parent-06/shop-product/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK" />
+</project>

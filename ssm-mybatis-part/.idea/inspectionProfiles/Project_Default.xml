@@ -1,0 +1,14 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="MavenPackageUpdate" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="excludeList">
+        <list>
+          <option value="org.junit.jupiter:junit-jupiter-api" />
+          <option value="mysql:mysql-connector-java" />
+          <option value="org.mybatis:mybatis" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
