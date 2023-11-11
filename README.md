@@ -21,8 +21,11 @@
 - [springboot-part](./springboot-part)
 - [mybatis-plus-part](./mybatis-plus-part)
 
+- [springboot-headline-part](https://github.com/xftxyz2001/springboot-headline-part)
+
 
 ## 其他
+- [快速掌握：全新SSM+Spring Boot+MyBatis-Plus实战精讲](https://www.wolai.com/v5Kuct5ZtPeVBk4NBUGBWF)
 - [阿里巴巴java开发手册v1.0.0](./阿里巴巴java开发手册.pdf)
 - [清理maven错误缓存](https://github.com/xftxyz2001/ways/blob/main/%E6%B8%85%E7%90%86maven%E9%94%99%E8%AF%AF%E7%BC%93%E5%AD%98.bat)
 
