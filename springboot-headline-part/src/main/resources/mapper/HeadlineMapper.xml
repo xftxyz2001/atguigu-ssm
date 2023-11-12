@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.mapper.HeadlineMapper">
+
+    <resultMap id="BaseResultMap" type="com.atguigu.pojo.Headline">
+            <id property="hid" column="hid" jdbcType="INTEGER"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="article" column="article" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="publisher" column="publisher" jdbcType="INTEGER"/>
+            <result property="pageViews" column="page_views" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="version" column="version" jdbcType="INTEGER"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        hid,title,article,
+        type,publisher,page_views,
+        create_time,update_time,version,
+        is_deleted
+    </sql>
+
+<!--    IPage<Map> selectMyPage(IPage page, @Param("portalVo") PortalVo portalVo);-->
+
+    <!-- List<Map>-->
+    <select id="selectMyPage" resultType="map">
+        select hid,title,type,page_views pageViews,TIMESTAMPDIFF(HOUR,create_time,NOW()) pastHours,
+            publisher from news_headline where is_deleted=0
+            <if test="portalVo.keyWords !=null and portalVo.keyWords.length()>0 ">
+                and title like concat('%',#{portalVo.keyWords},'%')
+            </if>
+            <if test="portalVo.type != 0">
+                and type = #{portalVo.type}
+            </if>
+    </select>
+
+
+    <select id="queryDetailMap" resultType="map">
+        select hid,title,article,type, h.version ,tname typeName ,page_views pageViews
+                ,TIMESTAMPDIFF(HOUR,create_time,NOW()) pastHours,publisher
+                     ,nick_name author from news_headline h
+                         left join news_type t on h.type = t.tid
+                         left join news_user u  on h.publisher = u.uid
+                                where hid = #{hid}
+    </select>
+
+</mapper>

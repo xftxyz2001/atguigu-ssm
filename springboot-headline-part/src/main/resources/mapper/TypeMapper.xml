@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.mapper.TypeMapper">
+
+    <resultMap id="BaseResultMap" type="com.atguigu.pojo.Type">
+            <id property="tid" column="tid" jdbcType="INTEGER"/>
+            <result property="tname" column="tname" jdbcType="VARCHAR"/>
+            <result property="version" column="version" jdbcType="INTEGER"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        tid,tname,version,
+        is_deleted
+    </sql>
+</mapper>
