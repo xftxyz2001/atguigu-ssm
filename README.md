@@ -21,7 +21,7 @@
 - [springboot-part](./springboot-part)
 - [mybatis-plus-part](./mybatis-plus-part)
 
-- [springboot-headline-part](https://github.com/xftxyz2001/springboot-headline-part)
+- [springboot-headline-part](./springboot-headline-part/)
 
 
 ## 其他

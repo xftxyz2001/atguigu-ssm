@@ -93,9 +93,9 @@
 
 > 确保本地node，npm，vscode安装完毕！ 如果没有安装可以回看ssm整合实战！
 
--   解压前端项目代码并存放到磁盘的合适位置
+-   从下方项目代码入口获取前端代码，并存放到磁盘的合适位置
 
-    [atguigu-headline.rar](file/atguigu-headline_Dx7OqeyleH.rar "atguigu-headline.rar")
+    [微头条项目代码](file/atguigu-headline_Dx7OqeyleH.md)
 
     ![](image/image_vslTlA9lTP.png)
 -   使用vscode打开工程
